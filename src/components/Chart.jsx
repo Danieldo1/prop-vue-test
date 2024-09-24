@@ -1,19 +1,19 @@
 
+import {useMemo} from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 
 const Chart = ({ data }) => {
-  const prepareChartData = (data) => {
-    const statusCount = data.reduce((acc, item) => {
-      acc[item.Status] = (acc[item.Status] || 0) + 1;
-      return acc;
-    }, {});
 
-    return Object.entries(statusCount).map(([name, value]) => ({ name, value }));
-  };
-
-  const chartData = prepareChartData(data);
+    const chartData = useMemo(() => {
+        const statusCount = data.reduce((acc, item) => {
+          acc[item.Status] = (acc[item.Status] || 0) + 1;
+          return acc;
+        }, {});
+    
+        return Object.entries(statusCount).map(([name, value]) => ({ name, value }));
+      }, [data]);
 
   return (
     <ResponsiveContainer width="100%" height={300}>
@@ -33,7 +33,7 @@ const Chart = ({ data }) => {
           ))}
         </Pie>
         <Tooltip />
-        <Legend iconType="circle"  verticalAlign="bottom" align="center"  />
+      <Legend iconType="circle"  verticalAlign="bottom" align="center"  />
       </PieChart>
     </ResponsiveContainer>
   );

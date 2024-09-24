@@ -37,6 +37,10 @@ export default function Home() {
     setIsFileUploadOpen(isOpen);
   };
 
+  const handleDataChange = (newData) => {
+    setUploadedData(newData);
+  };
+
 
   return (
     <div className="container mx-auto p-4">
@@ -59,7 +63,7 @@ export default function Home() {
         <KeyMetrics data={uploadedData} />
         <Chart data={uploadedData} />
         <h3 className="text-lg font-semibold">Таблица данных:</h3>
-        <DataTable data={uploadedData} />
+        <DataTable data={uploadedData} onDataChange={handleDataChange} />
       </div>
     )}
   </div>
